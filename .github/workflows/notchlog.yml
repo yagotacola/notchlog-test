@@ -1,0 +1,12 @@
+name: Notify Notchlog
+on: [push]
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post to Changelog
+        run: |
+          curl -X POST https://notchlog.com.br/api/v1/changelog \
+          -H "Authorization: Bearer ${{ secrets.NOTCHLOG_API_KEY }}" \
+          -H "Content-Type: application/json" \
+          -d '{"project_slug": "notchlog", "title": "Deploy Automático via GitHub Actions", "content": "Nova versão publicada automaticamente pelo pipeline de CI/CD.", "tag": "feature", "published": true}'
